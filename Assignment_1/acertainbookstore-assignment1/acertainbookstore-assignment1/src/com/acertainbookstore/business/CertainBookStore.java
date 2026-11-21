@@ -317,7 +317,19 @@ public class CertainBookStore implements BookStore, StockManager {
 	 */
 	@Override
 	public synchronized List<Book> getTopRatedBooks(int numBooks) throws BookStoreException {
-		throw new BookStoreException();
+		if (numBooks < 0) {
+			throw new BookStoreException("numBooks = " + numBooks + ", but it must be positive");
+		}
+
+		// Fetch all books, sort by average rating (totalRating / numTimesRated), highest first,
+		// and return at most numBooks of them.
+		// getAverageRating() returns -1 for unrated books, so they end up last.
+		List<BookStoreBook> listAllRatedBooks = bookMap.entrySet().stream().map(pair -> pair.getValue())
+				.sorted((a, b) -> Float.compare(b.getAverageRating(), a.getAverageRating()))
+				.collect(Collectors.toList());
+
+		return listAllRatedBooks.stream().limit(numBooks).map(book -> book.immutableBook())
+				.collect(Collectors.toList());
 	}
 
 	/*
@@ -337,7 +349,25 @@ public class CertainBookStore implements BookStore, StockManager {
 	 */
 	@Override
 	public synchronized void rateBooks(Set<BookRating> bookRating) throws BookStoreException {
-		throw new BookStoreException();
+		if (bookRating == null) {throw new BookStoreException(BookStoreConstants.NULL_INPUT);}
+
+		for (BookRating r : bookRating) {
+			if (r == null) {
+				throw new BookStoreException(BookStoreConstants.NULL_INPUT);
+			}
+			int rating = r.getRating();
+			int isbn = r.getISBN();
+			validateISBNInStock(isbn); // valid ISBN and book is in the store
+			if (BookStoreUtility.isInvalidRating(rating)) {
+				throw new BookStoreException(BookStoreConstants.RATING + rating + BookStoreConstants.INVALID);
+			}
+		}
+		//need a seperate for-loop to keep with all or nothing principle.
+		for (BookRating r : bookRating) {
+			int rating = r.getRating();
+			bookMap.get(r.getISBN()).addRating(rating);
+		}
+			
 	}
 
 	/*

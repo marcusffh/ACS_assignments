@@ -10,6 +10,7 @@ import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import com.acertainbookstore.business.Book;
 import com.acertainbookstore.business.BookCopy;
 import com.acertainbookstore.business.BookRating;
+import com.acertainbookstore.business.CertainBookStore;
 import com.acertainbookstore.interfaces.BookStore;
 import com.acertainbookstore.utils.BookStoreKryoSerializer;
 import com.acertainbookstore.interfaces.BookStoreSerializer;
@@ -146,7 +147,9 @@ public class BookStoreHTTPProxy implements BookStore {
 	 */
 	@Override
 	public void rateBooks(Set<BookRating> bookRating) throws BookStoreException {
-		throw new BookStoreException();
+		String urlString = serverAddress + "/" + BookStoreMessageTag.RATEBOOKS;
+		BookStoreRequest bookStoreRequest = BookStoreRequest.newPostRequest(urlString, bookRating);
+		BookStoreUtility.performHttpExchange(client, bookStoreRequest, serializer.get());
 	}
 
 	/*
@@ -156,6 +159,16 @@ public class BookStoreHTTPProxy implements BookStore {
 	 */
 	@Override
 	public List<Book> getTopRatedBooks(int numBooks) throws BookStoreException {
-		throw new BookStoreException();
+		String urlEncodedNumBooks = null;
+
+		urlEncodedNumBooks = URLEncoder.encode(Integer.toString(numBooks), StandardCharsets.UTF_8);
+
+		String urlString = serverAddress + "/" + BookStoreMessageTag.GETTOPRATEDBOOKS + "?"
+				+ BookStoreConstants.BOOK_NUM_PARAM + "=" + urlEncodedNumBooks;
+
+		BookStoreRequest bookStoreRequest = BookStoreRequest.newGetRequest(urlString);
+		BookStoreResponse bookStoreResponse = BookStoreUtility.performHttpExchange(client, bookStoreRequest,
+				serializer.get());
+		return (List<Book>) bookStoreResponse.getList();
 	}
 }

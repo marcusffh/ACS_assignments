@@ -14,6 +14,7 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import com.acertainbookstore.business.BookCopy;
 import com.acertainbookstore.business.BookEditorPick;
+import com.acertainbookstore.business.BookRating;
 import com.acertainbookstore.business.CertainBookStore;
 import com.acertainbookstore.business.StockBook;
 import com.acertainbookstore.utils.BookStoreKryoSerializer;
@@ -121,6 +122,14 @@ public class BookStoreHTTPMessageHandler extends AbstractHandler {
 
 			case GETSTOCKBOOKSBYISBN:
 				getStockBooksByISBN(request, response);
+				break;
+			
+			case RATEBOOKS:
+				rateBooks(request, response);
+				break;
+			
+			case GETTOPRATEDBOOKS:
+				getTopRatedBooks(request, response);
 				break;
 
 			default:
@@ -397,5 +406,37 @@ public class BookStoreHTTPMessageHandler extends AbstractHandler {
 		byte[] serializedRequestContent = in.readBytes(request.getContentLength());
 		in.close();
 		return serializedRequestContent;
+	}
+
+	@SuppressWarnings("unchecked")
+	private void rateBooks(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		byte[] serializedRequestContent = getSerializedRequestContent(request);
+
+		Set<BookRating> bookRatings = (Set<BookRating>) serializer.get().deserialize(serializedRequestContent);
+		BookStoreResponse bookStoreResponse = new BookStoreResponse();
+
+		try {
+			myBookStore.rateBooks(bookRatings);
+		} catch (BookStoreException ex) {
+			bookStoreResponse.setException(ex);
+		}
+
+		byte[] serializedResponseContent = serializer.get().serialize(bookStoreResponse);
+		response.getOutputStream().write(serializedResponseContent);
+	}
+
+	private void getTopRatedBooks(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	String numBooksString = URLDecoder.decode(request.getParameter(BookStoreConstants.BOOK_NUM_PARAM), StandardCharsets.UTF_8);
+	BookStoreResponse bookStoreResponse = new BookStoreResponse();
+
+	try {
+		int numBooks = BookStoreUtility.convertStringToInt(numBooksString);
+		bookStoreResponse.setList(myBookStore.getTopRatedBooks(numBooks));
+	} catch (BookStoreException ex) {
+		bookStoreResponse.setException(ex);
+	}
+
+	byte[] serializedResponseContent = serializer.get().serialize(bookStoreResponse);
+	response.getOutputStream().write(serializedResponseContent);
 	}
 }

@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "BookStoreHTTPServer (port 8081)",
+      "request": "launch",
+      "mainClass": "com.acertainbookstore.server.BookStoreHTTPServer",
+      "vmArgs": "-Dport=8081"
+    }
+  ]
+}

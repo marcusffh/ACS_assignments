@@ -40,5 +40,9 @@ public enum BookStoreMessageTag {
 	RATEBOOKS,
 
 	/** the tag for the get top rated books message */
-	GETTOPRATEDBOOKS;
+	GETTOPRATEDBOOKS,
+
+	/** the tag for the get get books in demand message */
+	GETBOOKSINDEMAND; //added myself
 }
+

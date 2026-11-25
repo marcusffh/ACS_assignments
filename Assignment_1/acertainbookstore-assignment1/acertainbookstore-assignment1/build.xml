@@ -7,7 +7,7 @@
     <pathelement location="bin"/>
     </path>
     <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
-    <target name="init">
+    <target name="init">4441
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">

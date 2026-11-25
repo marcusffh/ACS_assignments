@@ -469,6 +469,169 @@ public class StockManagerTest {
 		assertTrue(booksInStoreList.size() == 0);
 	}
 
+
+
+
+
+	/** TESTS FOR getBooksInDemand ARE BELOW ---------------------------------------------*/
+
+	/**
+	 Tests getBooksInDemand when the bookstore is empty
+	 */
+
+	@Test
+	public void test_getBooksInDemand_emptyStore() throws BookStoreException {
+
+
+		// remove all books first
+		storeManager.removeAllBooks();
+
+		// Get books in demand
+		List<StockBook> booksInDemand = storeManager.getBooksInDemand();
+
+		//verify that it is empty
+		assertTrue(booksInDemand.isEmpty());
+	}
+
+
+	/**
+	 Tests getBooksInDemand when the bookstore has had no sales misses
+	 */
+
+	@Test
+	public void test_getBooksInDemand_noMissedSales() throws BookStoreException {
+
+
+		// Get books in demand
+		List<StockBook> booksInDemand = storeManager.getBooksInDemand();
+
+		//verify that it is empty
+		assertTrue(booksInDemand.isEmpty());
+	}
+
+
+	/**
+	 Tests getBooksInDemand when the bookstore has had sales misses
+	 */
+
+	@Test
+	public void test_getBooksInDemand_MissedSales() throws BookStoreException {
+
+		// Try to buy more copies than there are in store.
+		HashSet<BookCopy> booksToBuy = new HashSet<BookCopy>();
+		booksToBuy.add(new BookCopy(TEST_ISBN, NUM_COPIES + 1));
+
+		try {
+			client.buyBooks(booksToBuy);
+			fail();
+		} catch (BookStoreException ex) {
+			;
+		}
+
+		// Get books in demand
+		List<StockBook> booksInDemand = storeManager.getBooksInDemand();
+
+		// Verify that the book with the missed sale is in demand.
+		assertTrue(booksInDemand.contains(getDefaultBook()));
+	}
+
+
+
+
+	/**
+	 Tests that getBooksInDemand ONLY returns books that has had sales misses, and not every book
+	 */
+	@Test
+	public void test_getBooksInDemand_OnlyMissedSales() throws BookStoreException {
+
+		// Add extra books to the store.
+		Set<StockBook> booksToAdd = new HashSet<StockBook>();
+		booksToAdd.add(new ImmutableStockBook(TEST_ISBN + 1, "Book 2", "Author 2", 10, NUM_COPIES, 0, 0, 0, false));
+		booksToAdd.add(new ImmutableStockBook(TEST_ISBN + 2, "Book 3", "Author 3", 10, NUM_COPIES, 0, 0, 0, false));
+		storeManager.addBooks(booksToAdd);
+
+		// Try to buy more copies of Book 2 than there are in store.
+		HashSet<BookCopy> booksToBuy = new HashSet<BookCopy>();
+		booksToBuy.add(new BookCopy(TEST_ISBN + 1, NUM_COPIES + 1));
+
+		try {
+			client.buyBooks(booksToBuy);
+			fail();
+		} catch (BookStoreException ex) {
+			;
+		}
+
+		// Try to buy more copies of Book 3 than there are in store.
+		booksToBuy = new HashSet<BookCopy>();
+		booksToBuy.add(new BookCopy(TEST_ISBN + 2, NUM_COPIES + 1));
+
+		try {
+			client.buyBooks(booksToBuy);
+			fail();
+		} catch (BookStoreException ex) {
+			;
+		}
+
+		// Get books in demand.
+		List<StockBook> booksInDemand = storeManager.getBooksInDemand();
+
+		// Verify that only Book 2 and Book 3 are returned.
+		assertEquals(2, booksInDemand.size());
+
+		assertTrue(booksInDemand.stream().anyMatch(book -> book.getISBN() == TEST_ISBN + 1));
+		assertTrue(booksInDemand.stream().anyMatch(book -> book.getISBN() == TEST_ISBN + 2));
+	}
+
+
+	/**
+	 Tests that books in demand, loose their statues, after being replenished
+	 */
+
+	@Test
+	public void test_getBooksInDemand_ReplenishStock() throws BookStoreException {
+
+		// we attempt tp buy more books than there are in the store
+		HashSet<BookCopy> booksToBuy = new HashSet<BookCopy>();
+		booksToBuy.add(new BookCopy(TEST_ISBN, NUM_COPIES + 1));
+
+		try {
+			client.buyBooks(booksToBuy);
+			fail();
+		} catch (BookStoreException ex) {
+			;
+		}
+
+		// Verify that the book is initially in demand.
+		List<StockBook> booksInDemand = storeManager.getBooksInDemand();
+		assertTrue(booksInDemand.contains(getDefaultBook()));
+
+		// Replenish the books in to the store
+		HashSet<BookCopy> booksToAdd = new HashSet<BookCopy>();
+		booksToAdd.add(new BookCopy(TEST_ISBN, NUM_COPIES));
+		storeManager.addCopies(booksToAdd);
+
+		// Get the books in demand again.
+		booksInDemand = storeManager.getBooksInDemand();
+
+		// Verify that the book is no longer in demand.
+		assertTrue(booksInDemand.isEmpty());
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/**
 	 * Tear down after class.
 	 *

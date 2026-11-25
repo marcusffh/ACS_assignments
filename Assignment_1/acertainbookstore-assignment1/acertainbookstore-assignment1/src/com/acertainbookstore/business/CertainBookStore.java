@@ -336,11 +336,30 @@ public class CertainBookStore implements BookStore, StockManager {
 	 * (non-Javadoc)
 	 * 
 	 * @see com.acertainbookstore.interfaces.StockManager#getBooksInDemand()
+	 *	description:
+		getBooksInDemand: queries all books for which there was a sales miss due to lack of
+		stock, as flagged by buyBooks. The method enforces all-or-nothing semantics and
+		does not have any input parameters.
+	 *
 	 */
 	@Override
 	public synchronized List<StockBook> getBooksInDemand() throws BookStoreException {
-		throw new BookStoreException();
+
+		Collection<BookStoreBook> bookMapValues = bookMap.values(); // get all book values
+		List<StockBook> booksInDemand = new ArrayList<>(); // create a empty list for later
+
+		//use a for loop to get the books which have had a sales miss
+		for (BookStoreBook book : bookMapValues) { //
+			if (book.hadSaleMiss()) {
+				booksInDemand.add(book.immutableStockBook()); // create an immutable copy of the "book in demand"
+			}
+		}
+
+		return booksInDemand; // returns List of books in demand
 	}
+
+
+
 
 	/*
 	 * (non-Javadoc)

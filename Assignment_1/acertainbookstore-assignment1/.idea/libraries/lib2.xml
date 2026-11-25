@@ -1,0 +1,43 @@
+<component name="libraryTable">
+  <library name="lib2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._servlet-api-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-util-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-deploy-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-gcloud-memcached-session-manager-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-annotations-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._reflectasm-1.10.1-shaded.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-http-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-webapp-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-all-9.4.11.v20180605-uber.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-jaas-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._hamcrest-core-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._ant-junit.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-alpn-server-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-xml-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-security-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-servlets-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._minlog-1.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-rewrite-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-gcloud-session-manager-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-infinispan-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-quickstart-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-jmx-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-client-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-plus-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-continuation-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-nosql-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-servlet-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-jaspi-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._junit-4.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-server-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._kryo-5.6.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-jndi-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-io-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._jetty-proxy-9.3.14.v20161028.jar!/" />
+      <root url="jar://$PROJECT_DIR$/__MACOSX/acertainbookstore-assignment1/lib/._objenesis-2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
